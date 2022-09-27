@@ -29,4 +29,8 @@ Route::name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('destinations', function () {
         return view('admin.destinations');
     })->name('destinations');
+
+    Route::get('routes', function () {
+        return view('admin.routes');
+    })->name('routes');
 });

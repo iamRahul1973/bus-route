@@ -9,6 +9,8 @@ class Route extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function destinations()
     {
         return $this->belongsToMany(Destination::class);
