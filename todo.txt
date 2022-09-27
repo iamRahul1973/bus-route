@@ -1,0 +1,1 @@
+1. Fix 404 thrown when deleting item you set to edit
