@@ -3,43 +3,21 @@
 namespace App\Http\Livewire;
 
 use App\Models\Route;
-use Livewire\Component;
 
-class RoutesList extends Component
+class RoutesList extends ItemsList
 {
     public $routes;
 
-    protected $listeners = ['refreshList'];
-
-    public function mount()
-    {
-        $this->setRoutes();
-    }
-
-    public function refreshList()
-    {
-        $this->setRoutes();
-    }
-
-    public function setRoutes()
+    public function setItems()
     {
         $this->routes = Route::with('destinations')->latest()->get();
     }
 
-    public function edit(int $id)
+    public function deleteItem(int $id)
     {
-        $this->emit('readyToEdit', $id);
-    }
-
-    public function delete(int $id)
-    {
-        $this->emit('setAction', 'create');
-
         $route = Route::findOrFail($id);
         $route->destinations()->detach();
         $route->delete();
-
-        $this->setRoutes();
     }
 
     public function render()

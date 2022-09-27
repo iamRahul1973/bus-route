@@ -3,31 +3,24 @@
 namespace App\Http\Livewire;
 
 use App\Models\Destination;
-use Livewire\Component;
 
-class DestinationsForm extends Component
+class DestinationsForm extends Form
 {
     public $name;
     public $fees;
-    public $action = 'create';
-    public $itemToEdit = null;
 
     protected $rules = [
         'name' => 'required|string|min:2|max:191',
         'fees' => 'required|numeric'
     ];
 
-    protected $listeners = ['readyToEdit', 'setAction'];
-
-    public function save()
-    {
-        return $this->{$this->action}();
-    }
-
-    public function readyToEdit(Destination $destination)
+    public function readyToEdit(int $itemId)
     {
         $this->setAction('edit');
+
+        $destination = Destination::findOrFail($itemId);
         $this->itemToEdit = $destination;
+
         $this->name = $destination->name;
         $this->fees = $destination->fees;
     }
@@ -46,17 +39,17 @@ class DestinationsForm extends Component
         return view('livewire.destinations-form');
     }
 
-    private function create()
+    protected function create()
     {
         $validated = $this->validate();
 
         Destination::create($validated);
 
         $this->reset();
-        $this->emit('refreshDestinationsList');
+        $this->emit('refreshList');
     }
 
-    private function edit()
+    protected function edit()
     {
         $this->validate();
 
@@ -65,6 +58,6 @@ class DestinationsForm extends Component
         $this->itemToEdit->save();
 
         $this->setAction('create');
-        $this->emit('refreshDestinationsList');
+        $this->emit('refreshList');
     }
 }

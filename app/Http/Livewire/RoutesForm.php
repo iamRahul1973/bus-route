@@ -3,33 +3,26 @@
 namespace App\Http\Livewire;
 
 use App\Models\Route;
-use Livewire\Component;
 use App\Models\Destination;
 
-class RoutesForm extends Component
+class RoutesForm extends Form
 {
     public $destinations;
     public $name;
     public $selectedDestinations = [];
-    public $action = 'create';
-    public $itemToEdit;
 
     protected $rules = [
         'name' => 'required|string|min:2|max:191',
         'selectedDestinations' => 'required|array' // TODO: Make sure all values are present in DB
     ];
 
-    protected $listeners = ['readyToEdit', 'setAction'];
-
-    public function save()
-    {
-        return $this->{$this->action}();
-    }
-
-    public function readyToEdit(Route $route)
+    public function readyToEdit(int $itemId)
     {
         $this->setAction('edit');
+
+        $route = Route::findOrFail($itemId);
         $this->itemToEdit = $route;
+
         $this->name = $route->name;
         $this->selectedDestinations = $route->destinations->pluck('id')->toArray();
     }
@@ -53,7 +46,7 @@ class RoutesForm extends Component
         return view('livewire.routes-form');
     }
 
-    private function create()
+    protected function create()
     {
         $this->validate();
 
@@ -64,7 +57,7 @@ class RoutesForm extends Component
         $this->emit('refreshList');
     }
 
-    private function edit()
+    protected function edit()
     {
         $this->validate();
 
