@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +38,8 @@ Route::name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('buses', function () {
         return view('admin.buses');
     })->name('buses');
+});
+
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('booking', [BookingController::class, 'show'])->name('booking');
 });

@@ -21,7 +21,8 @@ class LoginController extends Controller
         }
 
         if ($this->isUser()) {
-            User::role('user')->first();
+            Auth::login(User::role('user')->first());
+            return redirect()->route('booking');
         }
 
         // Invalid Credentials !
