@@ -16,6 +16,11 @@ class RoutesForm extends Form
         'selectedDestinations' => 'required|array' // TODO: Make sure all values are present in DB
     ];
 
+    public function mount()
+    {
+        $this->destinations = Destination::all();
+    }
+
     public function readyToEdit(int $itemId)
     {
         $this->setAction('edit');
@@ -34,11 +39,6 @@ class RoutesForm extends Form
         }
 
         $this->action = $action;
-    }
-
-    public function mount()
-    {
-        $this->destinations = Destination::all();
     }
 
     public function render()

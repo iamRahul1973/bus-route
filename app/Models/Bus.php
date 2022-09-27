@@ -9,6 +9,8 @@ class Bus extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function route()
     {
         return $this->belongsTo(Route::class);
@@ -16,6 +18,6 @@ class Bus extends Model
 
     public function bookings()
     {
-        return $this->belongsToMany(User::class)->as('booking')->withTimestamps();
+        return $this->belongsToMany(User::class, 'bookings')->withTimestamps();
     }
 }

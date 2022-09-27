@@ -13,7 +13,7 @@
         <ul>
             <li><a href="{{ route('admin.destinations') }}">Destinations</a></li>
             <li><a href="{{ route('admin.routes') }}">Routes</a></li>
-            <li><a href="#">Bus</a></li>
+            <li><a href="{{ route('admin.buses') }}">Bus</a></li>
             <li><a href="#">Bookings</a></li>
         </ul>
     </div>

@@ -45,6 +45,6 @@ class User extends Authenticatable
 
     public function bookings()
     {
-        return $this->belongsToMany(Bus::class)->as('booking')->withTimestamps();
+        return $this->belongsToMany(Bus::class, 'bookings')->withTimestamps();
     }
 }

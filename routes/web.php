@@ -33,4 +33,8 @@ Route::name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('routes', function () {
         return view('admin.routes');
     })->name('routes');
+
+    Route::get('buses', function () {
+        return view('admin.buses');
+    })->name('buses');
 });
