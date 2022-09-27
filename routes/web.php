@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::get('login', [LoginController::class, 'show'])->name('login');
 Route::post('login', [LoginController::class, 'login']);
 
-Route::name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
+Route::name('admin.')->prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('dashboard', function () {
         return view('admin.dashboard');
     })->name('dashboard');
@@ -38,6 +38,10 @@ Route::name('admin.')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('buses', function () {
         return view('admin.buses');
     })->name('buses');
+
+    Route::get('bookings', function () {
+        return view('admin.bookings');
+    })->name('bookings');
 });
 
 Route::middleware(['auth', 'role:user'])->group(function () {

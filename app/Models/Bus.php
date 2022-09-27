@@ -20,7 +20,7 @@ class Bus extends Model
 
     public function bookings()
     {
-        return $this->belongsToMany(User::class, 'bookings')->withTimestamps();
+        return $this->belongsToMany(User::class, 'bookings')->using(Booking::class)->withTimestamps();
     }
 
     public function book(User $user)
